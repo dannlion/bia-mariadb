@@ -1,0 +1,26 @@
+version: "3"
+services:
+  server:
+    build: .
+    ports:
+      - 3001:8080
+    links:
+      - database
+    environment:
+      DB_USER: root
+      DB_PWD: root2023
+      DB_HOST: database
+      DB_PORT: 3306
+  database:
+    image: mariadb:10.10.2
+    environment:
+      - "MARIADB_ROOT_PASSWORD=root2023"
+      - "MARIADB_USER=admin"
+      - "MARIADB_PASSWORD=admin2023"
+      - "MARIADB_DATABASE=bia"
+    ports:
+      - 3307:3306
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:
